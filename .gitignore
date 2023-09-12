@@ -134,6 +134,3 @@ dist
 
 # macOS-specific files
 .DS_Store
-
-# VS Code configuration
-.vscode
