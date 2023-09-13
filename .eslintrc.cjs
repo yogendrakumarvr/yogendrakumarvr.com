@@ -1,32 +1,24 @@
 module.exports = {
   root: true,
-  // ...
-  extends: [
-    // ...
-    "plugin:astro/recommended",
-    "plugin:prettier/recommended",
-  ],
-  parser: "@babel/eslint-parser",
-  // ...
+  extends: ['plugin:astro/recommended', 'plugin:prettier/recommended'],
   overrides: [
     {
       // Define the configuration for `.astro` file.
-      files: ["*.astro"],
+      files: ['*.astro'],
       // Allows Astro components to be parsed.
-      parser: "astro-eslint-parser",
+      parser: 'astro-eslint-parser',
       // Parse the script in `.astro` as TypeScript by adding the following configuration.
       // It's the setting you need when using TypeScript.
       parserOptions: {
-        parser: "@typescript-eslint/parser",
-        extraFileExtensions: [".astro"],
-        sourceType: "module",
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.astro'],
+        sourceType: 'module',
       },
       rules: {
         // override/add rules settings here, such as:
         // "astro/no-set-html-directive": "error"
-        "prettier/prettier": ["error", {}, { usePrettierrc: true }], // Use our .prettierrc file as source
+        'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
       },
     },
-    // ...
   ],
 };
