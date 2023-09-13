@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   extends: ['plugin:astro/recommended', 'plugin:prettier/recommended'],
+  parserOptions: { sourceType: 'module', ecmaVersion: 2015 },
   overrides: [
     {
       // Define the configuration for `.astro` file.
@@ -12,7 +13,6 @@ module.exports = {
       parserOptions: {
         parser: '@typescript-eslint/parser',
         extraFileExtensions: ['.astro'],
-        sourceType: 'module',
       },
       rules: {
         // override/add rules settings here, such as:

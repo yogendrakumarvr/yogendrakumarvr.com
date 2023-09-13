@@ -1,7 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageNotFoundLight from '../assets/PageNotFoundLight.svg';
+import PageNotFoundDark from '../assets/PageNotFoundDark.svg';
 ---
 
 <Layout description="" title="404 - Page Not Found">
-  <p class="h1">Blog Posts</p>
+  <p class="h1">404 - Page Not Found!</p>
+  <main class="flex h-full w-full items-end justify-end">
+    <img src={PageNotFoundLight.src} class="hidden min-w-[120px] max-w-[720px] dark:block" />;
+    <img src={PageNotFoundDark.src} class="block min-w-[120px] max-w-[720px] dark:hidden" />;
+  </main>
 </Layout>

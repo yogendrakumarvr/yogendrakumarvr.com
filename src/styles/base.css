@@ -26,10 +26,6 @@
     @apply bg-light dark:bg-dark;
   }
 
-  body {
-    @apply background-color;
-  }
-
   .logo {
     @apply text-color font-secondary text-4xl lg:text-5xl;
   }
