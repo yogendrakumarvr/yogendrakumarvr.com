@@ -12,7 +12,7 @@ const { description, title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -23,7 +23,7 @@ const { description, title } = Astro.props;
     <ViewTransitions />
   </head>
 
-  <body class="container mx-auto flex flex-col gap-16 p-16 lg:p-32">
+  <body class="background-color container mx-auto flex flex-col gap-16 p-16 lg:p-32">
     <Header />
     <main>
       <slot />
