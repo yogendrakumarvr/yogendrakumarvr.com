@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class', '[data-mode="dark"]'],
+  darkMode: ['class'],
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
   theme: {
     extend: {
@@ -9,9 +9,15 @@ module.exports = {
         dark: '#0f0f0f',
       },
       fontFamily: {
-        primary: ['Major Mono Display', 'sans-serif'],
-        secondary: ["'Roboto Mono'", 'sans-serif'],
+        primary: ['JetBrains Mono', 'sans-serif'],
+        secondary: ['Major Mono Display', 'sans-serif'],
       },
+    },
+    spacing: {
+      4: '4px',
+      8: '8px',
+      16: '16px',
+      32: '32px',
     },
   },
   plugins: [],

@@ -1,13 +1,6 @@
 module.exports = {
   root: true,
-  // ...
-  extends: [
-    // ...
-    'plugin:astro/recommended',
-    'plugin:prettier/recommended',
-  ],
-  parser: '@babel/eslint-parser',
-  // ...
+  extends: ['plugin:astro/recommended', 'plugin:prettier/recommended'],
   overrides: [
     {
       // Define the configuration for `.astro` file.
@@ -27,6 +20,5 @@ module.exports = {
         'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
       },
     },
-    // ...
   ],
 };
