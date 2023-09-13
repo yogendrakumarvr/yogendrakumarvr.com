@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .text-color {
+    @apply text-dark dark:text-light;
+  }
+
+  .background-color {
+    @apply bg-light dark:bg-dark;
+  }
+}
