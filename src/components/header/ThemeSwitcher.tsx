@@ -36,9 +36,9 @@ export const ThemeSwitcher = () => {
   return (
     <button onClick={toggleTheme}>
       {theme === 'dark' ? (
-        <LightMode className="w-[32px] fill-light lg:w-[48px]" />
+        <LightMode className="w-[24px] fill-light lg:w-[32px]" />
       ) : (
-        <DarkMode className="w-[32px] fill-dark lg:w-[48px]" />
+        <DarkMode className="w-[24px] fill-dark lg:w-[32px]" />
       )}
     </button>
   );
