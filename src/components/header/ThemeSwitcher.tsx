@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { LightMode } from '../../assets/LightMode';
-import { DarkMode } from '../../assets/DarkMode';
+import { LightMode } from '../../assets/icons/LightMode';
+import { DarkMode } from '../../assets/icons/DarkMode';
 
 export const ThemeSwitcher = () => {
   const [theme, setTheme] = useState('light');
