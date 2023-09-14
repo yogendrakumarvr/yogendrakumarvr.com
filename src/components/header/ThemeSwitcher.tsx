@@ -34,7 +34,7 @@ export const ThemeSwitcher = () => {
   };
 
   return (
-    <button onClick={toggleTheme} >
+    <button onClick={toggleTheme}>
       {theme === 'dark' ? (
         <LightMode className="w-[24px] fill-light lg:w-[32px]" />
       ) : (
