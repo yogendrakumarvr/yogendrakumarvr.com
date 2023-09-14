@@ -9,6 +9,10 @@ export default defineConfig({
   // TODO - Update site URL with actual URL at the end.
   site: 'http://localhost:4321/',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    cleanUrls: true,
+    // TODO : Enable analytics.
+    // analytics: true,
+  }),
   integrations: [tailwind(), react(), sitemap()],
 });
