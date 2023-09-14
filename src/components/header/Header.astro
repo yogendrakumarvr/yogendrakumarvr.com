@@ -2,6 +2,8 @@
 import Logo from '../../assets/Logo.astro';
 import HeaderLink from './HeaderLink.astro';
 import { ThemeSwitcher } from '../../components/header/ThemeSwitcher.tsx';
+import Resume from '../../assets/resume/Yogendra_Kumar_V_R.pdf';
+import Download from '../../assets/Download.astro';
 ---
 
 <header class="transition">
@@ -9,10 +11,15 @@ import { ThemeSwitcher } from '../../components/header/ThemeSwitcher.tsx';
     <!-- Logo -->
     <a href="/" class="no-underline"> <Logo className="w-[48px] text-color lg:w-[64px]" /></a>
 
-    <div class="flex items-center gap-16 lg:gap-32">
+    <div class="lg:gap-24 flex items-center gap-32">
       <HeaderLink title="About" href="/about" />
-      <HeaderLink title="Contact" href="/contact" />
-      <!-- TODO <button>Download Resume</button> -->
+      <a href={Resume} download class="flex items-center gap-4 rounded bg-dark p-8 dark:bg-light"
+        ><Download className="w-[24px] fill-light dark:fill-dark lg:w-[32px]" /><p
+          class="h5 hidden text-light dark:text-dark sm:block"
+        >
+          Resume
+        </p></a
+      >
       <ThemeSwitcher client:only />
     </div>
   </nav>
