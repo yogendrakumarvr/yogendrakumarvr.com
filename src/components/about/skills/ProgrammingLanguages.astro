@@ -1,0 +1,15 @@
+---
+import CSS3 from '../../../assets/skills/CSS3.astro';
+import HTML5 from '../../../assets/skills/HTML5.astro';
+import JavaScript from '../../../assets/skills/JavaScript.astro';
+import TypeScript from '../../../assets/skills/TypeScript.astro';
+
+const skillIconClassnames = 'h-[72px] w-[72px] lg:h-[96px] lg:w-[96px] ';
+---
+
+<div class="m-w-[320px] flex flex-wrap gap-4">
+  <JavaScript className={skillIconClassnames} />
+  <TypeScript className={skillIconClassnames} />
+  <HTML5 className={skillIconClassnames} />
+  <CSS3 className={skillIconClassnames} />
+</div>
