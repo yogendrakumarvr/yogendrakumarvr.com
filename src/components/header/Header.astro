@@ -13,11 +13,7 @@ import Download from '../../assets/icons/Download.astro';
 
     <div class="lg:gap-24 flex items-center gap-32">
       <HeaderLink title="About" href="/about" />
-      <a
-        href={Resume}
-        download="Yogendra Kumar V R.pdf"
-        class="flex items-center gap-4 rounded bg-dark p-8 dark:bg-light"
-      >
+      <a href={Resume} download="Yogendra Kumar V R.pdf" class="rounded bg-dark p-8 dark:bg-light">
         <Download className="w-[24px] fill-light dark:fill-dark lg:w-[32px]" />
       </a>
       <ThemeSwitcher client:only />
