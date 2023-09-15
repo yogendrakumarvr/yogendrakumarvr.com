@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,10 +12,9 @@
     box-sizing: border-box;
   }
 
-  body {
+  html {
     width: 100vw;
     height: 100vh;
-    overflow: auto;
   }
 
   .text-color {
@@ -23,6 +23,10 @@
 
   .background-color {
     @apply bg-light dark:bg-dark;
+  }
+
+  .icon-fill-color {
+    @apply fill-dark dark:fill-light;
   }
 
   .h1 {
@@ -50,6 +54,6 @@
   }
 
   .normal-text {
-    @apply text-color font-primary text-sm font-normal lg:text-base;
+    @apply text-color font-secondary text-sm font-normal lg:text-base;
   }
 }

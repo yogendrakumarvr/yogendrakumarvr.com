@@ -6,8 +6,8 @@ import PageNotFoundDark from '../assets/icons/PageNotFoundDark.svg';
 
 <Layout description="" title="404 - Page Not Found">
   <p class="h1">404 - Page Not Found!</p>
-  <main class="flex h-full w-full items-end justify-end">
-    <img src={PageNotFoundLight.src} class="hidden min-w-[120px] max-w-[720px] dark:block" />;
-    <img src={PageNotFoundDark.src} class="block min-w-[120px] max-w-[720px] dark:hidden" />;
-  </main>
+  <div style={{ position: 'absolute', bottom: 0, right: 0, zIndex: -1 }}>
+    <img src={PageNotFoundLight.src} class="hidden max-h-[720px] dark:block" />
+    <img src={PageNotFoundDark.src} class="block max-h-[720px] dark:hidden" />
+  </div>
 </Layout>
