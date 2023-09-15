@@ -1,0 +1,21 @@
+---
+import ESLint from '../../../assets/skills/ESLint.astro';
+import Figma from '../../../assets/skills/Figma.astro';
+import Git from '../../../assets/skills/Git.astro';
+import GitHub from '../../../assets/skills/GitHub.astro';
+import NPM from '../../../assets/skills/NPM.astro';
+import Prettier from '../../../assets/skills/Prettier.astro';
+import VSCode from '../../../assets/skills/VSCode.astro';
+
+const skillIconClassnames = 'h-[72px] w-[72px] lg:h-[96px] lg:w-[96px] ';
+---
+
+<div class="m-w-[320px] flex flex-wrap gap-4">
+  <VSCode className={skillIconClassnames} />
+  <Git className={skillIconClassnames} />
+  <GitHub className={skillIconClassnames} />
+  <Figma className={skillIconClassnames} />
+  <NPM className={skillIconClassnames} />
+  <ESLint className={skillIconClassnames} />
+  <Prettier className={skillIconClassnames} />
+</div>

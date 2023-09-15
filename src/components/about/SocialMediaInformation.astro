@@ -1,0 +1,24 @@
+---
+import LocationIcon from '../../assets/icons/Location.astro';
+import ContactEmailIcon from '../../assets/icons/ContactEmail.astro';
+import LinkedInIcon from '../../assets/icons/LinkedIn.astro';
+
+const location = 'Bengaluru, Karnataka, India';
+const emailId = 'kumaryogendrvr@gmail.com';
+const linkedInProfile = 'linkedin.com/in/yogendrakumarvr';
+---
+
+<section class="flex flex-col gap-4 lg:gap-8">
+  <div class="flex gap-4">
+    <LocationIcon className="icon-fill-color w-[16px] lg:w-[24px]" />
+    <p class="normal-text font-primary">{location}</p>
+  </div>
+  <a href=`mailto:${emailId}` class="flex gap-4">
+    <ContactEmailIcon className="icon-fill-color w-[16px] lg:w-[24px]" />
+    <p class="normal-text font-primary">{emailId}</p>
+  </a>
+  <a href=`https://www.${linkedInProfile}` class="flex gap-4">
+    <LinkedInIcon className="icon-fill-color w-[16px] lg:w-[24px]" />
+    <p class="normal-text font-primary">{linkedInProfile}</p>
+  </a>
+</section>

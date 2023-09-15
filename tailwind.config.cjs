@@ -10,6 +10,7 @@ module.exports = {
       },
       fontFamily: {
         primary: ['JetBrains Mono', 'sans-serif'],
+        secondary: ['Poppins', 'sans-serif'],
       },
     },
     spacing: {

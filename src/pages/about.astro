@@ -1,7 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { components } from '../components/mdx';
+import Introduction from '../components/about/Introduction.mdx';
+import PortfolioTechStack from '../components/about/PortfolioTechStack.mdx';
+import WorkExperience from '../components/about/WorkExperience.mdx';
+import Skills from '../components/about/Skills.mdx';
 ---
 
 <Layout description="About - Yogendra Kumar V R" title="Yogendra Kumar V R">
-  <p class="h1">Yogendra Kumar V R</p>
+  <Introduction components={components} />
+  <WorkExperience components={components} />
+  <Skills components={components} />
+  <PortfolioTechStack components={components} />
+  <footer>
+    <p class="normal-text float-right mt-16 font-primary">© 2023-present Yogendra Kumar V R</p>
+  </footer>
 </Layout>
