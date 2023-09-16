@@ -2,7 +2,13 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@layouts/*": ["src/layouts/*"]
+    }
   },
   "extends": "astro/tsconfigs/strict"
 }

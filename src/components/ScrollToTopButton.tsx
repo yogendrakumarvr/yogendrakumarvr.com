@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollTop } from '../assets/icons/ScrollTop';
+import { ScrollTop } from '@assets/icons/ScrollTop';
 
 export const ScrollToTopButton = () => {
   const [showButton, setShowButton] = useState(false);
