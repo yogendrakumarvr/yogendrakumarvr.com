@@ -24,6 +24,14 @@ const { description, title } = Astro.props;
     <title>{title}</title>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <ViewTransitions />
+    <script>
+      window.va =
+        window.va ||
+        function () {
+          (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
 
   <body class="background-color mx-auto flex max-w-[1440px] flex-col gap-16 p-16 lg:p-32">
