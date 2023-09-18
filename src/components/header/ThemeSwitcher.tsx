@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { LightMode } from '../../assets/icons/LightMode';
-import { DarkMode } from '../../assets/icons/DarkMode';
+import { LightMode } from '@assets/icons/LightMode';
+import { DarkMode } from '@assets/icons/DarkMode';
 
 export const ThemeSwitcher = () => {
   const [theme, setTheme] = useState('light');
@@ -34,7 +34,7 @@ export const ThemeSwitcher = () => {
   };
 
   return (
-    <button onClick={toggleTheme}>
+    <button aria-label="Toggle Theme" onClick={toggleTheme}>
       {theme === 'dark' ? (
         <LightMode className="w-[24px] fill-light lg:w-[32px]" />
       ) : (

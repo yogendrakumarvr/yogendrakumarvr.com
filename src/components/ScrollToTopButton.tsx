@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollTop } from '../assets/icons/ScrollTop';
+import { ScrollTop } from '@assets/icons/ScrollTop';
 
 export const ScrollToTopButton = () => {
   const [showButton, setShowButton] = useState(false);
@@ -24,6 +24,7 @@ export const ScrollToTopButton = () => {
   return (
     <div>
       <button
+        aria-label="Scroll To Top Button"
         onClick={scrollTop}
         disabled={!showButton}
         className={`fixed bottom-32 right-32 ${

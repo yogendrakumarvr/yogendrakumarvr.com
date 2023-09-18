@@ -1,0 +1,30 @@
+---
+import ReadMore from '@assets/icons/ReadMore.astro';
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+
+<a
+  href={`post/${post.slug}`}
+  class="flex w-full flex-col justify-between gap-8 rounded-lg border-2 border-dark p-16 dark:border-light lg:flex-row"
+>
+  <div class="order-2 flex flex-col gap-8 lg:order-2">
+    <p class="h4">{post.data.title}</p>
+    <p class="normal-text">{post.data.description}</p>
+  </div>
+  <img
+    alt={post.slug}
+    src={post.data.cover}
+    class="lg:-h-[168px] order-1 w-full self-start rounded-lg object-contain lg:order-3 lg:w-[320px]"
+  />
+  <div
+    class="order-3 flex items-center justify-center rounded bg-dark p-8 transition-opacity duration-150 dark:bg-light lg:order-1"
+  >
+    <ReadMore className="w-[24px] fill-light dark:fill-dark lg:w-[32px]" />
+  </div>
+</a>

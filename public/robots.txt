@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://'https://yogendrakumarvr.com/sitemap-index.xml

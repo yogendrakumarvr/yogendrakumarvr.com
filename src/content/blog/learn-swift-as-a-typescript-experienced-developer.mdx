@@ -1,0 +1,569 @@
+---
+title: 'Learn Swift as a TypeScript-Experienced Developer'
+description: 'In this article, I am going to share my experience of learning Swift programming language as a developer coming from Typescript knowledge.'
+slug: learn-swift-as-a-typescript-experienced-developer
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1689945486740/8192120b-1769-4b18-8bed-018b400c3a03.png
+datePublished: Sat Jul 22 2023 17:28:44 GMT+0000
+---
+
+In this article, I am going to share my experience of learning Swift programming language as a developer coming from Typescript knowledge.
+
+# Display to Standard Output
+
+```typescript
+console.log('Hello World!');
+```
+
+```swift
+print("Hello World!")
+```
+
+# [Variable Declaration](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics#Constants-and-Variables)
+
+```typescript
+const PI = 3.14; // Constants
+let age = 23; // Variable, Recommended.
+var age = 23; // Variable, Not Recommended.
+```
+
+```swift
+let PI = 3.14 // Constants
+var age = 23 // Variable
+```
+
+Declaration of constants can confuse, since `let` is used to create variables in Typescript and `let` is used to create constants in Swift.
+
+# Variable Type Declaration
+
+The type of the variable will be inferred based on the initial value of the variable. In Typescript, constant `PI` and variable `age` will infer `number` type. In Swift, constant `PI` will infer `Double` and variable `age` will infer `Int` type.
+
+In Typescript, Variables can be assigned multiple types using the union `|` operator can assign different types of values to it.
+
+```typescript
+let customVariable: string | boolean | undefined;
+```
+
+In Swift, Variables can be assigned only a single type, Once the type is declared or inferred, it cannot change.
+
+```swift
+var customVariable: String?
+```
+
+# No implicit Type Conversion
+
+Typescript will implicity modify the type of variable based on the operator or situation.
+
+In Typescript, `console.log("10" + 1)` statement will result in `"101"`, where `1` is converted to `string` and is concerned with `"10"`.
+
+In Swift, `print("10" + 1)` will result in an error with the below message.
+
+> note: overloads for '+' exist with these partially matching parameter lists: (Int, Int), (String, String)
+
+If we need the same behaviour as Typescript, then we must explicitly convert `1` to `String`.
+
+The statement will be `print("10" + String(1))`.
+
+# [String](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/stringsandcharacters#String-Literals)
+
+In Typescript, we can create string variables using
+
+1. Single line: single quotation mark `''`, double quotation mark `""` or back-ticks ` `` `
+2. Multiline: back-ticks ` `` `
+
+In Swift, we can create string variables using
+
+1. Single line: double quotes `""`
+2. Multiline: three double quotation mark `"""`
+
+   > Only double quotation mark is used in Swift.
+
+# [String Interpolation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/stringsandcharacters#String-Interpolation)
+
+In Typescript, we use `${}` within string wrapped with back-ticks ` `` `.
+
+```typescript
+console.log(`The width is ${100}`);
+```
+
+In Swift, we use `\()` within string wrapped with double quotes `""`. Expression within `\()` will be evaluated to create an actual string and is replaced with that string.
+
+```swift
+print("The width is \(100)")
+```
+
+# [Arrays](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/collectiontypes#Arrays)
+
+The creation of Arrays is the same in both Typescript and Swift. The only difference is the way the array type is represented and unlike Typescript, Swift will throw an error when we try to access an index outside the array.
+
+```typescript
+const fruits: string[] = ['Orange'];
+```
+
+```swift
+let fruits: [String] = ["Apple"]
+```
+
+# [Dictionary](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/collectiontypes#Dictionaries)
+
+A dictionary stores associations between keys of the same type and values of the same type in a collection with no defined ordering. I think of them as arrays with custom indexes.
+
+```swift
+var responseMessages: [Int: String] = [
+    200: "OK",
+    403: "Access forbidden",
+    404: "File not found",
+    500: "Internal server error"
+]
+print(responseMessages[200]) // Prints "OK"
+```
+
+From a Typescript perspective, they are similar objects where the keys and values are limited to a single type.
+
+```typescript
+const responseMessage: { [key: number]: string } = {
+  200: 'OK',
+  403: 'Access forbidden',
+  404: 'File not found',
+  500: 'Internal server error',
+};
+console.log(responseMessage['200']); // Logs "OK"
+```
+
+# [Optionals](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics#Optionals)
+
+An optional represents two possibilities: Either there _is_ a value, and you can unwrap the optional to access that value, or there _isn’t_ a value at all.
+
+```swift
+var optionalMessage: String?
+optionalMessage = "Hello!"
+```
+
+The question mark indicates that the value it contains is optional. When `optionalMessages` is defined as an optional variable without providing a default value, the variable is automatically set to `nil`.
+
+In Typescript, Optionals variables can be defined by adding either `null` or `undefined`.
+
+```typescript
+let optionalMessage: String | undefined;
+optionalMessage = 'Hello!';
+```
+
+## [Optional Checking](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics#Optional-Binding)
+
+### [If Statements and Forced Unwrapping](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics/#If-Statements-and-Forced-Unwrapping)
+
+Use an `if` statement to find out whether an optional contains a value by comparing the optional against `nil`. If an optional has a value, it’s considered to be “not equal to” `nil`.
+
+```swift
+if optionalMessage != nil {
+    print("optionalMessage contains a message.")
+}
+```
+
+### [Optional Binding](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/thebasics/#Optional-Binding)
+
+Optional binding is used to find out whether an optional contains a value, and if so, to make that value available as a temporary constant or variable.
+
+- If `optionalMessage` != `nil`, `message` is assigned with `optionalMessage` value and `message` value is printed.
+- If `optionalMessage` == `nil`, else block is executed.
+
+```swift
+if let message = optionalMessage {
+    print(message)
+} else {
+    print("No message")
+}
+```
+
+### [Nil-Coalescing Operator](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/basicoperators/#Nil-Coalescing-Operator)
+
+The nil-coalescing operator (`a ?? b`) unwraps an optional `a` if it contains a value, or returns a default value `b` if `a` is `nil`. The expression `a` is always of an optional type. The expression `b` must match the type that’s stored inside `a`.
+
+```swift
+let message = optionalMessage ?? "No Message"
+```
+
+### [Switch](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow#Switch)
+
+A `switch` statement considers a value and compares it against several possible matching patterns.
+
+```swift
+let vegetable = "red pepper"
+switch vegetable {
+    case "celery":
+        print("Celery")
+    case "cucumber", "watercress":
+        print("Sandwich ingredients")
+    case let x where x.hasSuffix("pepper"):
+        print("Spicy \(x)")
+    default:
+        print("Unknown ingredient")
+}
+```
+
+The difference between Typescript `switch` cases are:
+
+1. [No Implicit Fallthrough](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow#No-Implicit-Fallthrough): `break` statements are not required at the end of a case block.
+2. [Compound Cases](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow#Compound-Cases): The body of each case _must_ contain at least one executable statement. Multiple switch cases that share the same body can be combined by writing several patterns after `case`, with a comma `,` between each of the patterns.
+
+   ```swift
+   var letter: Character = "a"
+   switch(letter) {
+       case "a", "e", "i", "o", "u":
+           print("\(letter) is vowel")
+       default:
+           print("\(letter) is consanant")
+   ```
+
+3. Swift case supports other types of case values like [intervals](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow#Interval-Matching), [tuples](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow#Tuples), and [where](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/controlflow#Where).
+
+# Functions
+
+## [Defining and Calling Functions](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/functions#Defining-and-Calling-Functions)
+
+```swift
+func addWithNamedParameters(a: Int, b: Int) -> Int {
+    return a + b
+}
+
+func addWithoutNamedParameters(_ a: Int, _ b: Int) -> Int {
+    return a + b
+}
+```
+
+- `func` is the keyword to define functions
+- `addWithNamedParameters` is the name of the function.
+- `a` and `b` are named parameters of the function.
+- The return type of the function is the type defined after `->` .
+- If an argument label for a parameter is not needed then, we can write an underscore (`_`) instead of an explicit argument label for that parameter.
+  ```swift
+  print(addWithNamedParameters(a: 10, b: 20)) // Prints 30
+  print(addWithoutNamedParameters(10, 20)) // Prints 30
+  ```
+- We can use a tuple type as the return type for a function to return multiple values as part of one compound return value.
+  ```swift
+  func calculate(a: Int, b: Int) -> (sum: Int, avg: Double) {
+      let sum = a + b
+      return (sum, Double(sum) / 2)
+  }
+  print(calculate(a: 10, b: 20))
+  ```
+
+## [Default Parameters](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/functions#Default-Parameter-Values)
+
+We can define a _default value_ for any parameter in a function by assigning a value to the parameter after that parameter’s type. If a default value is defined, you can omit that parameter when calling the function.
+
+```swift
+func customPrint(a: Int = 3, b: Int = 5) {
+    print(a, b)
+}
+customPrint(a: 10, b: 20) // Prints 10 20
+customPrint(b: 20) // Prints 3 2
+customPrint() // Prints 3 5
+```
+
+## [Variadic Parameters](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/functions#Variadic-Parameters)
+
+Variadic parameters are similar to Typescript's Rest parameters.
+
+A variadic parameter accepts zero or more values of a specified type. Write variadic parameters by inserting three-period characters (`...`) after the parameter’s type name.
+
+```swift
+func add(_ numbers: Int...) -> Int {
+    var total = 0
+    for number in numbers {
+        total += number
+    }
+    return total
+}
+print(add(1,2,3,4)) // Prints 10
+```
+
+### [In-Out Parameters](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/functions#In-Out-Parameters)
+
+Function parameters are constants by default, updating them within the function body will result in a compile-time error which prevents modifying the parameter value by mistake. If we want a function to modify a parameter’s value, and we want those changes to persist after the function call has ended, define that parameter as an in-out parameter instead.
+
+```swift
+func swap(_ a: inout Int, _ b: inout Int) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+var a = 3, b = 4
+print(a, b) // Prints 3 4
+swap(&a, &b)
+print(a, b) // Prints 4 3
+```
+
+## [Closure Expressions](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures#Closure-Expressions)
+
+Closure Expressions are similar to Typescript's arrow function syntax.
+
+Closure expressions are a way to write inline closures in a brief, focused syntax. Closure expressions provide several syntax optimizations for writing closures in a shortened form without loss of clarity or intent.
+
+### [The Sorted Method](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures#The-Sorted-Method)
+
+The `sorted(by:)` method accepts a closure that takes two arguments of the same type as the array’s contents, and returns a `Bool` value to say whether the first value should appear before or after the second value once the values are sorted. The sorting closure needs to return `true` if the first value should appear _before_ the second value, and `false` otherwise.
+
+```swift
+let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+var reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
+    return s1 > s2
+})
+```
+
+### [Implicit Returns from Single-Expression Closures](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures#Implicit-Returns-from-Single-Expression-Closures)
+
+To reduce the syntax, We can omit the return type in the single expression closure, where the return type is implicity inferred.
+
+```swift
+var reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in s1 > s2 })
+```
+
+### [Inferring Type From Context](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures#Inferring-Type-From-Context)
+
+Swift can infer the types of its parameters and the type of value it returns. The `sorted(by:)` method is being called on an array of strings, so its argument must be a function of type `(String, String) -> Bool`.
+
+```swift
+var reversedNames = names.sorted(by: { (s1, s2) in s1 > s2 })
+```
+
+### [Shorthand Argument Name](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures#Shorthand-Argument-Names)
+
+Swift automatically provides shorthand argument names to inline closures, which can be used to refer to the values of the closure’s arguments by the names `$0`, `$1`, `$2`, and so on.
+
+```swift
+var reversedNames = names.sorted(by: { $0 > $1 })
+```
+
+### [Operator Methods](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/closures#Operator-Methods)
+
+Swift’s `String` type defines its string-specific implementation of the greater-than operator (`>`) as a method that has two parameters of type `String`, and returns a value of type `Bool`. This exactly matches the method type needed by the `sorted(by:)` method. Therefore, you can simply pass in the greater-than operator, and Swift will infer that you want to use its string-specific implementation.
+
+```swift
+var reversedNames = names.sorted(by: >)
+```
+
+# [Classes](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/classesandstructures)
+
+Classes are reference types that are not copied when they’re assigned to a variable or constant, or when they’re passed to a function. Rather than a copy, a reference to the same existing instance is used.
+
+### [Definition Syntax](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/classesandstructures#Definition-Syntax)
+
+```swift
+class NamedShape {
+    var numberOfSides: Int = 0
+    var name: String
+
+    init(_ name: String, numberOfSides: Int) {
+        self.name = name
+        self.numberOfSides = numberOfSides
+    }
+
+    func getDescription() -> String {
+        return "A \(name) has \(numberOfSides) sides."
+    }
+}
+
+var shape = NamedShape("Triangle", numberOfSides: 3)
+```
+
+- A class definition starts with `class` keyword followed by class name, which can be followed by a list of classes or protocols to support inheritance or comply with protocol structure. From the example `NamedShape` is the class name.
+- A class can contain a set of [properties](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/properties), which can have a default value. From the example `numberOfSides` and `name` are instance properties.
+- `init` will be called when the instance of the class is created. If a property defined for a class does not have a default value or it is an optional value. It is mandatory to set that property in the `init`.  
+   Inside `init` the names of the parameters and properties are the same, to differentiate the two, we use `self` to refer to the properties while the parameters can be used directly.
+- A class can contain a set of [methods](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/methods). They support the functionality of those instances, either by providing ways to access and modify instance properties or by providing functionality related to the instance’s purpose. From the example `getDescription()` is an instance method.
+
+# [Inheritance](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/inheritance)
+
+A class can inherit methods, properties, and other characteristics from another class. When one class inherits from another, the inheriting class is known as a subclass, and the class it inherits from is known as its superclass.
+
+```swift
+class Square: NamedShape {
+    var sideLength: Double
+    var perimeter: Double {
+        get {
+            return sideLength * 4
+        }
+        set {
+            sideLength = newValue / 4
+        }
+    }
+
+    init(sideLength: Double, name: String) {
+        super.init(name, numberOfSides: 4)
+        self.sideLength = sideLength
+    }
+
+    func area() -> Double {
+        return sideLength * sideLength
+    }
+
+    override func description() -> String {
+        return "A \(name) with sides of length \(sideLength)"
+    }
+}
+
+var square = Square(sideLength: 10.0, name: "Square")
+```
+
+- `Square` subclass is derived from `NamedShape` base class.
+- `Square` class contains its own set of properties like `sideLength`, `perimeter` as well as the properties inherited from `NamedShape` class.
+- The `init()` initializer for `Square` starts by calling `super.init()`, which calls the default initializer for the `Square` class’s superclass, `NamedShape`. This ensures that the inherited property is initialized by `NamedShape` before `Square` has the opportunity to modify the property. Then `Square` class properties are initialized.
+- `Square` class contains its own set of methods like `area()` and `Square` class has a choice either to use the methods provided by its superclass `NamedShape` or to override the method to provide an alternative implementation of the method.
+
+## [Computed Properties](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/properties#Computed-Properties)
+
+We can provide a getter and an optional setter to retrieve and set other properties and values indirectly. For example `perimeter` property present in the `Square` definition.
+
+```swift
+shape.perimeter // 40.0
+```
+
+When we retrieve `perimeter` value, `perimeter` value will be computed based on the `sideLength` value and returned.
+
+```swift
+shape.perimeter = 80.0 // sideLength will be set as 20.0
+```
+
+Similarly, When we set `perimeter` value, the value set will be available using `newValue` variable by default. We can use this value to update `sideLength` value.
+
+# [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols)
+
+Protocols are similar to Typescript's Interfaces. It defines a blueprint of methods, properties, and other requirements that can then be adopted by a class, structure, or enumeration to provide an actual implementation of those requirements.
+
+```swift
+protocol ExampleProtocol {
+    var description: String { get }
+    // In class, functions are able to modify the structure by default. mutating keyword is not needed.
+    // In struct, functions are not able to modify the structure by default. mutating keyword is needed.
+    mutating func adjust()
+}
+
+class ExampleProtocolClass: ExampleProtocol {
+    var description: String = "A simple class."
+    func adjust() {
+        description += " Adjusted"
+    }
+}
+
+struct ExampleProtocolStructure: ExampleProtocol {
+    var description: String = "A simple class."
+    mutating func adjust() {
+        description += " Adjusted"
+    }
+}
+```
+
+# Extensions
+
+Extensions add new functionality to an existing class, structure, enumeration, or protocol type.
+
+```swift
+extension Int: ExampleProtocol {
+    var description: String { "The number is \(self)"}
+    mutating func increment() {
+        self += 1
+    }
+}
+var num = 10
+print(num.description) // The number is 10
+num.increment()
+print(num.description) // The number is 11
+```
+
+We are extending the `Int` type to have a property `description` which has a read-only getter and a method `increment()` to increment its value by 1.
+
+# [Enumeration](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/enumerations)
+
+`CompassPoint` enum uses multiple protocols `Int` and `CaseIterable`.
+
+`Int` type is used to implicitly fill the without values with default values. It also provides access to the raw value of the cases by exposing `rawValue` property.
+
+`CaseIterable` type is used to expose `allCases` which can be used to iterate over all the cases in the enum.
+
+Unlike Typescript where an `enum` only supports constant values, an `enum` in Swift can store any type of data and also provides a feature to write methods inside them.
+
+```swift
+enum CompassPoint: Int, CaseIterable {
+    case north
+    case south
+    case east
+    case west
+}
+
+var directionToHead = CompassPoint.north
+
+switch directionToHead {
+    case .north:
+        print("North")
+    case .south:
+        print("South")
+    case .east:
+        print("East")
+    case .west:
+        print("West")
+}
+
+for direction in CompassPoint.allCases {
+    print(direction.rawValue)
+}
+```
+
+When using `switch` and `enum` together, if all the cases are not addressed then a compile-time error will be thrown. When it isn’t appropriate to provide a `case` for every enumeration case, you can provide a `default` case to cover any cases that aren’t addressed explicitly.
+
+# [Concurrency](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency)
+
+Swift has built-in support for writing asynchronous and parallel code in a structured way.
+
+> There are no promises here.
+
+Asynchronous code is written by defining asynchronous functions. To indicate that a function or method is asynchronous, we write the `async` keyword in its declaration after its parameters.
+
+```swift
+func fetchUserId(from server: String) async -> Int {
+    if server == "primary" {
+        return 97
+    }
+    return 501
+}
+func fetchUsername(from server: String) async -> String {
+    let userId = await fetchUserId(from: server)
+    if userId == 97 {
+        return "John"
+    }
+    return "Guest"
+}
+// Use Task to call asynchronous functions from synchronous code, without waiting for them to return.
+Task {
+   let username = await fetchUsername(from: "primary")
+//    print(username)
+}
+```
+
+## Calling Asynchronous Functions in Sequence
+
+```swift
+let firstPhoto = await downloadPhoto(named: photoNames[0])
+let secondPhoto = await downloadPhoto(named: photoNames[1])
+let thirdPhoto = await downloadPhoto(named: photoNames[2])
+
+let photos = [firstPhoto, secondPhoto, thirdPhoto]
+```
+
+In this case, `await` is added to every `downloadPhoto()` function, the code will wait and execute each `downloadPhoto()` function one after the other and finally stores all the results into `photos` variable.
+
+## Calling Asynchronous Functions in Parallel
+
+```swift
+async let firstPhoto = downloadPhoto(named: photoNames[0])
+async let secondPhoto = downloadPhoto(named: photoNames[1])
+async let thirdPhoto = downloadPhoto(named: photoNames[2])
+
+let photos = await [firstPhoto, secondPhoto, thirdPhoto]
+```
+
+In this case, `async` is added to every `downloadPhoto()` function, the code will not wait and execute each `downloadPhoto()` function one after the other and finally will wait for all the results and store the results into `photos` variable.
+
+# **References**
+
+[Swift Documentation](https://docs.swift.org/swift-book/documentation/the-swift-programming-language)

@@ -1,0 +1,128 @@
+---
+title: 'VS Code Extension I Use Everyday in 2023'
+description: 'Visual Studio Code is my editor for building web applications in React. I use a bunch of VS Code extensions to increase productivity, increase code readability, debug errors, writing better logging messages.'
+slug: vs-code-extension-i-use-everyday-in-2023
+datePublished: Tue Apr 11 2023 17:30:09 GMT+0000
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1681035127825/0b16e1d2-ea60-4a35-99d5-229c5b193d71.png
+---
+
+[Visual Studio Code](https://code.visualstudio.com/) is my editor for building web applications in React. I use a bunch of VS Code extensions to increase productivity, increase code readability, debug errors, writing better logging messages.
+
+## ESLint
+
+[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension integrates with `.eslintrc.json` which contains the linting configuration for the project.
+
+In the attached screenshot, `'@typescript-eslint/no-explicit-any': 'error'` rule is defined in `.eslintrc.json` which reports an error in the VS code terminal when a variable does not have its type defined and assumes `any` as its type.
+
+![ESLint](https://cdn.hashnode.com/res/hashnode/image/upload/v1681023777665/b5ca7013-78f7-4762-8f56-1b398f7d6ac6.png)
+
+## Prettier - Code formatter
+
+[Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extension is used for code formatting. In my setup, Prettier integrates with ESLint to report errors when the code is not enforcing the style configuration.
+
+In the attached screenshot, there is no spacing between variable name `width`, assignment operator `=` and value `1000`. Hence Prettier is reporting an error through ESLint to add spacing between them.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681025125691/79ff74bd-0e47-48b8-8ae5-58c7481bb648.png)
+
+Please check the link to integrate Prettier into ESLint. [A Complete guide to setup ESLint and Prettier for a React project with Typescript](/post/setup-eslint-and-prettier-for-react-project-with-typescript).
+
+## Code Spell Checker
+
+[Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) is used to check spelling mistakes in source code. These types of issues are usually very hard to identify when we often focus on code format and conventions, we ignore silly mistakes like typos in the source code.
+
+In the attached screenshot, there is a typo in the variable name `widt`.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681026190906/1f98cd3c-d147-4892-bc5f-8f9723520117.png)
+
+Click on `Quick Fix...` to get auto-suggestion to fix the variable name.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681026219724/a98eb144-d888-4425-98d4-a436db4dd846.png)
+
+Code Spell Checker supports English. If you need a spell checker for a different language, it has support for add-ons for many languages.
+
+## Error Lens
+
+[Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens) is used to improve the highlighting of errors, warnings and other language diagnostics. In the above screenshots, you can notice that the error message is displayed in the line where the error is reported.
+
+This eliminates the need for checking the terminal for errors and also finding in which line the error has occurred. Since the error is highlighted, it makes it hard to ignore it.
+
+## Auto Close Tag
+
+[Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag) automatically adds the closing tag for HTML and React elements.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681026957069/732970ee-378d-4f0c-b7ee-9182fa04ccc6.gif)
+
+Although this extension works great, it is not perfect. One of the issues, I found with this extension is when we write a generic type, it gets treated as a tag and adds a closing tag.
+
+Example: In the below code snippet, the extension thinks `<void>` as HTML or React element and adds a closing tag.
+
+```typescript
+const apiCall = async (): Promise<void></void> => {};
+```
+
+Personally, it does not stop me from using the extension because I will be writing more tags than generic types.
+
+## Auto Rename Tag
+
+[Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag) automatically renames the paired tag of HTML and React elements. This extension makes sure that the name in the opening tag and closing tag are in sync.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681027651127/3c177a5d-a9e3-48cd-a6c2-d04f5c3cd0ef.gif)
+
+## Path Intellisense
+
+[Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense) provides autocompletes for filename. VS code natively doesn't provide autocomplete when you are trying to import images/SVGs. When you are working with a ton of images, this becomes time-consuming to search the image name and extension.
+
+## Git Lens
+
+[Git Lens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) gives a quick glimpse into whom, why, and when a line or code block was changed.
+
+## Git Graph
+
+[Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph) shows all the commits and git actions that happened in a detailed view. We can look into commit details like the author, the date when the commit was added, and the changes that were added to the commit. We can also checkout branches from a particular commit and many more features.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681030420776/b53934a8-1c1b-4113-addb-6cd371ef71cf.gif)
+
+## Turbo Console Log
+
+[Turbo Console Log](https://marketplace.visualstudio.com/items?itemName=ChakrounAnas.turbo-console-log) make debugging much easier by automating the operation of writing a meaningful log message.
+
+To insert a console.log statement for a variable,
+
+1. We have to select the variable which has to be logged.
+2. Press `ctrl + alt + L` (Windows/Linux) or `ctrl + option + L` (Mac)
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681031082426/4eb3c303-6690-44c0-a562-31a3f1c17dc9.gif)
+
+## Material Icon Theme
+
+[Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) has a variety of icons that helps distinguish the folder and files just by glancing over them. The icons are updated based on the folder name and file extension.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681031469926/b7fb9597-68ae-4514-b49e-4981dc12e92a.png)
+
+## Vitesse Theme
+
+[Vitesse Theme](https://marketplace.visualstudio.com/items?itemName=antfu.theme-vitesse) looks really good in the dark mode.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681034746858/b15bc514-6f69-410b-b174-322e66f6a4a4.png)
+
+## Better Comments
+
+Better Comments improves your code commenting by annotating with alerts, informational, TODOs, and more!
+
+![Annotated code](https://github.com/aaron-bond/better-comments/raw/HEAD/images/better-comments.PNG)
+
+## Color Highlight
+
+[Color Highlight](https://marketplace.visualstudio.com/items?itemName=naumovs.color-highlight) provides the colour preview in the code itself. It can be customized to be 'dot-before', 'dot-after', 'foreground', 'background', 'outline', or 'underline'.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681032991812/59a1c6ed-7b30-4417-b3e5-6129c60b9a8a.png)
+
+## Bracket Select
+
+[Bracket Select](https://marketplace.visualstudio.com/items?itemName=chunsen.bracket-select) enables quick select code between brackets, support for (),{} and \[\], &lt;&gt;.
+
+## Import Cost
+
+[Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost) calculates the size of imports and requires and shows it in the editor.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681033585540/c2dba8fc-fad3-4c2c-88f1-60921004c4aa.png)

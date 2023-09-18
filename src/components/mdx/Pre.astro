@@ -1,0 +1,8 @@
+---
+const props = Astro.props;
+---
+
+<pre
+  class={`${props.class} normal-text flex w-full rounded-lg bg-[#24292e] p-16 whitespace-pre-wrap`}> 
+  <slot />
+</pre>

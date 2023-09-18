@@ -7,13 +7,11 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO - Update site URL with actual URL at the end.
-  site: 'http://localhost:4321/',
+  site: 'https://yogendrakumarvr.com/',
   output: 'server',
   adapter: vercel({
     cleanUrls: true,
-    // TODO : Enable analytics.
-    // analytics: true,
+    analytics: true,
   }),
   integrations: [tailwind(), react(), mdx(), sitemap()],
 });

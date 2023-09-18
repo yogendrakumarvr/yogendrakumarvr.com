@@ -1,0 +1,180 @@
+---
+title: "Why JavaScript is Like No Other Language: An Inside Look at its Weirdest Features"
+description: "Variable Hoisting, Type Coercion i.e.Implicit Type conversion, Mutable Global variables, Automatic Semicolon Insertion, Arrays, Min and Max Comparison,"
+slug: why-javascript-is-like-no-other-language-an-inside-look-at-its-weirdest-features
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1682582209306/94ffe346-964c-4ba7-8a39-d8d80d9c4553.png
+datePublished: Wed Apr 26 2023 17:25:36 GMT+0000
+
+---
+
+## Avoid Creating Variables Using `var`
+
+```javascript
+console.log(varVariable) // undefined
+var varVariable = 10;
+console.log(varVariable) // 10
+```
+
+Variables created with `var` are hoisted meaning the declaration is moved to the top of their scope before code execution. In simple terms, we can refer to the variable before it's declared. Since the variable is not yet initialized, it has an `undefined` value.
+
+### What about `const` and `let`?
+
+```javascript
+console.log(letVariable) // ReferenceError
+let letVariable = 10;
+
+console.log(constVariable) // ReferenceError
+const constVariable = 10;
+```
+
+Referencing the value of a variable declared using `const` and `let` before its declaration will result in `ReferenceError`.
+
+## Type Coercion i.e.Implicit Type conversion
+
+Javascript performs type coercion when an operation has mismatched types. instead of throwing type errors.
+
+It is very convenient, but can also result in unexpected bugs if the developer didn't intend for that conversion. Here are a few examples.
+
+```javascript
+"50" + 1 // "501"
+"50" - 1 // 49
+true + true + true // 3
+false - true // -1
+[] + [] // ""
+{} + [] // 0
+[] + {} // "[object Object]"
+"foo" + + "bar" // "fooNaN"
+Number.MIN_VALUE > 0 // true
+null == false // false
+"222" - -"111" // 333
+3 > 2 > 1 // false
+true == "true" // true
+false == "false" // false
+[1, 2, 3] + [4, 5, 6] // "1,2,34,5,6"
+!+[]+[]+![] // "truefalse"
+```
+
+1. `"50" + 1` results in `"501"`. The number `1` is coerced to a string and concatenates with the other string. Hence the final result is `"501"`.
+    
+2. `"50" - 1` results in `49`. The string `"50"` is coerced to a number and performs subtraction. Hence the final result is `49`.
+    
+3. `true + true + true` results in `3`. `true` when coerced to number returns `1`. Therefore `1 + 1 + 1` results in `3`.
+    
+4. `false - true` results in `-1`. Similar to `true`, `false` when coerced to number returns `0.` Therefore `0 - 1` results `-1`.
+    
+5. `[] + []` results in `""`. `[]` is coerced to an empty string. Therefore `"" + ""` results `""`.
+    
+6. `{} + []` results in `0`. `{}` is an empty block. and `+ []` is coerces \[\] to a number which is equal to `0`. Hence the final result is `0`.
+    
+7. `[] + {}` results in `""`. `[]` is coerced to an empty string. `{}` is an object and when it is concatenated with an empty string will result in `"[object Object]"`.
+    
+8. `"foo" + + "bar"` results in `"fooNaN"`. "foo" is a string. `+ "bar"` convert the string `"bar"` to a number which will return `NaN`. "foo" + NaN will return `"fooNaN"`.
+    
+9. `Number.MIN_VALUE > 0` results true. `Number.MIN_VALUE` returns `5e-324` which is the smallest positive number that can be represented within float precision, i.e. that's as close as you can get to zero.
+    
+10. `null == false` results in `false`. Because `null` is only comparable with `null` or `undefined` to return `true`, otherwise it will return `false`.
+    
+11. `"222" - -"111"` results in `333`. `- "111"` is converted to a number and return `-111`. then `"222"` in `"222" - -111` is coerced to a number `222`. Finally `222 - -111` results in `333`.
+    
+12. `3 > 2 > 1` results in `false`. First `3 > 2` is evaluated which results in `true`. Next `true > 1` in this case true is converted to a number `1 > 1` which returns false.
+    
+13. `true == "true"` return `true` since both `true` and `"true"` is truthy.  
+    `false == "false"` returns false, because `false` is falsy but `"false"` is truthy.
+    
+14. `[1, 2, 3] + [4, 5, 6]` results in `"1,2,34,5,6"`. Both the arrays are first converted into strings which look like `"1,2,3" + "4,5,6"` which results in `"1,2,34,5,6"`.
+    
+15. `!+[]+[]+![]` results in `"truefalse"`. This is how the expression is evaluated  
+    `+[]` is converted into a number which results in `0`,  
+    `![]`, `[]` is a truth, therefore `!true` is false,  
+    `[]+![]` becomes `[]+false`, where `[]` is covered to `""` . Therefore `""+false` results in `"false"`,  
+    `!+[]` becomes `!false`, which results in `true`.  
+    Finally, `!+[]+[]+![]` becomes `true+"false"` which results in `"truefalse"`
+    
+
+## `typeof null === "object"`
+
+> In the first implementation of JavaScript, JavaScript values were represented as a type tag and a value. The type tag for objects was `0`. `null` was represented as the NULL pointer (`0x00` in most platforms). Consequently, `null` had `0` as type tag, hence the `typeof` return value `"object"`.
+> 
+> From MDN documentation [refer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof#typeof_null).
+
+## `x !== x` can be true
+
+When `x = NaN`, `NaN` is the only value that compares unequal to itself. Hence if you need to check for `NaN` condition, we have to use `Number.isNaN()` or `isNaN()`.
+
+The reason why `NaN` is unequal to itself. It's possible to produce two floating point numbers with different binary representations but are both `NaN`.
+
+## Mutable Global variables
+
+```javascript
+var console = {}
+console.log() // Uncaught TypeError: console.log is not a function
+```
+
+```javascript
+const example = () => {
+var undefined = 10;
+console.log(undefined) // 10
+}
+example()
+```
+
+`undefined` is a property of the *global object*. It is mutable in any scope other than global scope.
+
+Modifying the global variable is "A good way to make your life more difficult."
+
+## Automatic Semicolon Insertion
+
+```javascript
+// How to intend the code to execute.
+const getUser = () => {
+    return
+    { name: 'John' };
+}
+console.log(getUser()); // { name: 'John' }
+```
+
+This is what Javascript sees, JS automatically adds semi-colon, if the return statement is followed by a new line terminator.
+
+```javascript
+// How JS executes the code.
+const getUser = () => {
+    return;
+    { name: 'John' }; // Unreachable code.
+}
+console.log(getUser()); // undefined
+```
+
+## Arrays
+
+```javascript
+const arr = [];
+console.log(arr.length); // 0
+arr.length = 50;
+console.log(arr.length); // 50
+arr.length = 30;
+console.log(arr.length); // 30
+```
+
+Array syncs the contents of the array automatically when the length value changes. It can be used to increase or decrease the contents of an array. The value of length should always be a positive integer value.
+
+## Min and Max Comparison
+
+```javascript
+Math.min() < Math.max() // false
+Math.max() // -Infinity
+Math.min() // Infinity
+```
+
+`Math.min()` to find the lowest number within the parameter, will start the comparison with the largest positive integer which is `Infinity`. Since there are no parameters to be compared with, it returns `Infinity`.
+
+Similarly, `Math.max()` to find the highest number within the parameters, will start the comparison with the smallest negative integer which is `-Infinity`. Since there are no parameters to be compared with, it returns `-Infinity`.
+
+## Numerical Array Sort
+
+```javascript
+const arr = [10,1,3,40,8,9,23]
+arr.sort()
+console.log(arr) // [1, 10, 23, 3, 40, 8, 9]
+```
+
+`Array.sort()` converts the number to a string and then compares strings in UTF-16 code units order. In that case `"10"` comes before `"9"`.

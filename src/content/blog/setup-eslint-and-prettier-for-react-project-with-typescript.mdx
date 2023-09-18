@@ -1,0 +1,329 @@
+---
+title: 'A Complete guide to setup ESLint and Prettier for a React project with Typescript'
+description: 'Setup ESLint and Prettier for a React project with Typescript along with VS Code and GitHub actions integration.'
+slug: setup-eslint-and-prettier-for-react-project-with-typescript
+datePublished: Sat Apr 08 2023 11:35:42 GMT+0000
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1680941952118/c7720663-bc3d-4104-919d-e2ca113b9740.jpeg
+---
+
+## Why do we need ESLint and Prettier?
+
+To keep it short, Prettier is used for code formatting and ESLint is used for catching bugs!
+
+### ESLint
+
+ESLint is a tool that statically identifies and reports patterns found in JavaScript code, to make code more consistent and avoid bugs. ESlint can be configured based on the developer's requirements.
+
+A few examples are:
+
+- Add a rule which reports when an unused variable is left in the code.
+- Add a rule to enforce that developers don't use `var` to declare variables.
+- Add a rule to enforce naming conventions for types, interfaces, components, functions etc.
+
+To check the various linting rules in ESLInt. Please check [https://eslint.org/docs/latest/rules/](https://eslint.org/docs/latest/rules/)
+
+### Prettier
+
+Prettier on the other hand is a code formatting tool, which helps developers to make their code clean and readable.
+
+A few examples are:
+
+- Add a rule to prefer single quotes `'` over `"`.
+- Add a rule to automatically insert a new line at the EOF. This is very much necessary when using GitHub. Since it expects all the files to contain a new line at the EOF.
+  To check the various configuration options in Prettier. Please check [https://prettier.io/docs/en/options.html](https://prettier.io/docs/en/options.html)
+
+## Create a React Project
+
+To create a React project with TypeScript. Open a new terminal and run
+
+```bash
+npx create-react-app my-app --template typescript
+```
+
+## Setup ESLint and Prettier
+
+#### Install ESLint
+
+```bash
+npm install --save-dev eslint
+```
+
+#### Install Prettier
+
+```bash
+npm install --save-dev prettier
+```
+
+#### Install ESLint Plugins
+
+These dependencies are required to make sure ESLint works well with various plugins like `prettier`, `react` and `typescript-eslint`.
+
+```bash
+npm install --save-dev eslint-plugin-prettier
+npm install --save-dev eslint-config-prettier
+npm install --save-dev @typescript-eslint/eslint-plugin
+npm install --save-dev eslint-plugin-react
+npm install --save-dev eslint-config-airbnb-typescript
+npm install --save-dev eslint-plugin-import
+npm install --save-dev @typescript-eslint/parser
+```
+
+#### ESLint Configuration
+
+Add the ESLint configuration `.eslintrc.{js,yml,json}` file to the root level of the project folder. Create `.eslintrc.js` and copy and paste the below code snippet
+
+```javascript
+module.exports = {
+  root: true, // Make sure eslint picks up the config at the root of the directory
+  settings: {
+    react: {
+      version: 'detect', // Automatically detect the react version
+    },
+  },
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
+  extends: [
+    'plugin:react/recommended',
+    'airbnb-typescript',
+    'plugin:prettier/recommended', // Make this the last element so prettier config overrides other formatting rules
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: ['./tsconfig.json'],
+  },
+  plugins: ['@typescript-eslint', 'react', 'import'],
+  rules: {
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
+
+    //eslint/react/rules
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react/jsx-pascal-case': 'error',
+
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'typeLike',
+        format: ['PascalCase'],
+        filter: { regex: '^(__String|[A-Za-z]+_[A-Za-z]+)$', match: false },
+      },
+      {
+        selector: 'interface',
+        format: ['PascalCase'],
+        custom: { regex: '^I[A-Z]', match: false },
+        filter: {
+          regex: '^I(Arguments|TextWriter|O([A-Z][a-z]+[A-Za-z]*)?)$',
+          match: false,
+        },
+      },
+      {
+        selector: 'variable',
+        format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
+        filter: {
+          regex: '^(_{1,2}filename|_{1,2}dirname|_+|[A-Za-z]+_[A-Za-z]+)$',
+          match: false,
+        },
+      },
+      {
+        selector: 'function',
+        format: ['camelCase', 'PascalCase'],
+        leadingUnderscore: 'allow',
+        filter: { regex: '^[A-Za-z]+_[A-Za-z]+$', match: false },
+      },
+      {
+        selector: 'parameter',
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+        filter: { regex: '^(_+|[A-Za-z]+_[A-Z][a-z]+)$', match: false },
+      },
+      {
+        selector: 'method',
+        format: ['camelCase', 'PascalCase'],
+        leadingUnderscore: 'allow',
+        filter: { regex: '^[A-Za-z]+_[A-Za-z]+$', match: false },
+      },
+      {
+        selector: 'memberLike',
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+        filter: { regex: '^[A-Za-z]+_[A-Za-z]+$', match: false },
+      },
+      {
+        selector: 'enumMember',
+        format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+        leadingUnderscore: 'allow',
+        filter: { regex: '^[A-Za-z]+_[A-Za-z]+$', match: false },
+      },
+      { selector: 'property', format: null },
+    ],
+
+    '@typescript-eslint/no-unused-vars': [
+      'off',
+      { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+    ],
+    '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+
+    'no-duplicate-imports': 'off',
+    '@typescript-eslint/no-duplicate-imports': 'error',
+
+    '@typescript-eslint/no-inferrable-types': 'error',
+    '@typescript-eslint/no-misused-new': 'error',
+    '@typescript-eslint/no-this-alias': 'error',
+
+    'no-unused-expressions': 'off',
+    '@typescript-eslint/no-unused-expressions': ['error', { allowTernary: true }],
+
+    '@typescript-eslint/prefer-for-of': 'error',
+    '@typescript-eslint/prefer-function-type': 'error',
+    '@typescript-eslint/prefer-namespace-keyword': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-var-requires': 'error',
+    '@typescript-eslint/prefer-nullish-coalescing': 'error',
+    '@typescript-eslint/unbound-method': 'off',
+    '@typescript-eslint/prefer-as-const': 'error',
+
+    // eslint
+    'constructor-super': 'error',
+    curly: ['error', 'multi-line'],
+    'dot-notation': 'error',
+    eqeqeq: 'error',
+    'new-parens': 'error',
+    'no-caller': 'error',
+    'no-duplicate-case': 'error',
+    'no-empty': 'error',
+    'no-eval': 'error',
+    'no-extra-bind': 'error',
+    'no-fallthrough': 'error',
+    'no-new-func': 'error',
+    'no-new-wrappers': 'error',
+    'no-return-await': 'error',
+    'no-sparse-arrays': 'error',
+    'no-template-curly-in-string': 'error',
+    'no-throw-literal': 'error',
+    'no-trailing-spaces': 'error',
+    'no-undef-init': 'error',
+    'no-unsafe-finally': 'error',
+    'no-unused-labels': 'error',
+    'no-var': 'error',
+    'object-shorthand': 'error',
+    'prefer-const': 'error',
+    'prefer-object-spread': 'error',
+    'space-in-parens': 'error',
+    'unicode-bom': ['error', 'never'],
+    'use-isnan': 'error',
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+  },
+};
+```
+
+#### Prettier Configuration
+
+Create `.prettierrc` at the root level of the project folder and copy and paste the below code snippet.
+
+```json
+{
+  "semi": true,
+  "tabWidth": 4,
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "bracketSameLine": true,
+  "endOfLine": "auto"
+}
+```
+
+#### Ignore Files from ESLint Checking
+
+Sometimes we don't want the linting check to be performed on certain files for example they can be generated code like `x`, build code or other configuration files.
+
+In that case, Create a `.eslintignore` file at the root level of the project folder and copy and paste the below code snippet.
+
+```plaintext
+node_modules
+build
+.github
+.eslintrc.js
+src/service-worker.ts
+src/serviceWorkerRegistration.ts
+src/setupTests.ts
+src/reportWebVitals.ts
+src/react-app-env.d.ts
+```
+
+#### Ignore Files from Prettier Code Formatter
+
+Similar to ignoring the linting for generated code. We also want to ignore code formatting on those files as well.
+
+In that case, Create a `.prettierignore` file at the root level of the project folder and copy and paste the below code snippet.
+
+```plaintext
+node_modules
+build
+```
+
+## Integration with `package.json`
+
+Once all the dependencies and configuration files have been added to the project. We can add scripts in `package.json` to run the linter and code formatting using the terminal.
+
+Copy and paste the below code snippet into the `script` section of `package.json`.
+
+```json
+"lint": "eslint --fix .",
+"lint-check": "eslint .",
+"format": "prettier --write . --config ./.prettierrc",
+"format-check": "prettier --check . --config ./.prettierrc"
+```
+
+Here `lint` and `format` will resolve fixable issues. On the other hand, `link-check` and `format-check` will only report the issues without fixing them. Below code snippet shows how to run the scripts.
+
+```bash
+npm run lint
+npm run lint-check
+npm run format
+npm run format-check
+```
+
+## Integration with VS Code
+
+We can integrate ESLint and Prettier with VS Code by installing the VS Code Extensions [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+#### Set Prettier as Default Formatter
+
+1. To open the command palette, you can use `COMMAND + SHIFT + P` on macOS or `CTRL + SHIFT + P` on Windows.
+2. In the command palette, search for `format` and then choose **Format Document**.
+3. Click the **Configure Default Formatter...** button
+4. Then choose **Prettier - Code Formatter**.
+
+## Integration with GitHub Actions
+
+We are going to create a `Check` action which checks for linting and code formatting when the pull request is raised.
+
+Create `.github/workflows` folders in the root level of the project. Then create a `Check.yml` to add the metadata to perform the GitHub Action.
+
+```yaml
+name: Check
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+      - name: Set NPM Registry for installing dependencies
+        run: npm config set registry https://registry.npmjs.com/
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate build code
+        run: npm run build --if-present
+      - name: Run formatter
+        run: npm run format
+      - name: Run linter
+        run: npm run lint-check
+```
