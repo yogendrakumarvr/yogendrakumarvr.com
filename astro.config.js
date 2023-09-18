@@ -15,11 +15,5 @@ export default defineConfig({
     // TODO : Enable analytics.
     // analytics: true,
   }),
-  markdown: {
-    syntaxHighlight: 'shiki',
-    shikiConfig: {
-      wrap: true,
-    },
-  },
   integrations: [tailwind(), react(), mdx(), sitemap()],
 });

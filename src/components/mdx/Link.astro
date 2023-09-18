@@ -1,0 +1,9 @@
+---
+const props = Astro.props;
+---
+
+<a {...props} class={`${props.class} font-primar underline`}>
+  <strong>
+    <slot />
+  </strong>
+</a>

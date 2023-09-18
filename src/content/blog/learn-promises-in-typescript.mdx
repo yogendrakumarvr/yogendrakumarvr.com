@@ -1,0 +1,183 @@
+---
+title: 'Learn Promises in Typescript'
+description: 'Promise() constructor, then and catch, async and await, then-catch vs async-await, Execute Promises Sequentially and Parallelly, Promise.all'
+slug: learn-promises-in-typescript
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1681828007827/411dac01-11c4-4287-afb1-268d9d4be65c.jpeg
+datePublished: Tue Apr 18 2023 14:32:22 GMT+0000
+---
+
+[Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) are used to get the result from an asynchronous code execution in JavaScript. In a web application, Promises are used almost everywhere. Every data that flows in and out of the application to a remote server is an asynchronous call.
+
+## Create a Promise
+
+### Using `Promise()` constructor
+
+The `Promise()` constructor takes an executor function which receives two parameters. They are `resolveFunc` and `rejectFunc`.
+
+```typescript
+const timer = async (timeoutInMilliSeconds: number): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    if (timeoutInMilliSeconds < 0) {
+      reject('Timer stopped as timeoutInMilliSeconds is negative');
+    } else {
+      setTimeout(() => {
+        resolve('Timer successfully completed');
+      }, timeoutInMilliSeconds);
+    }
+  });
+};
+```
+
+## Executing a Promise
+
+### Using `then` and `catch`
+
+```typescript
+const timerWithoutAsync = (timeoutInMilliSeconds: number): void => {
+  console.log('Timer started');
+  timer(timeoutInMilliSeconds)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  console.log('Timer Finished');
+};
+```
+
+If `timeoutInMilliSeconds` is positive, `setTimeout` is executed. Callback provided to `setTimeout` is executed when the `timeoutInMilliSeconds` is elapsed.
+
+The callback executes the `resolve` function which returns a string to `timerWithoutAsync`.  
+The return value is passed to the `then` block callback which logs the string to the console.
+
+If `timeoutInMilliSeconds` is negative, `reject` function is executed which returns a string to `timerWithoutAsync`.  
+The return value from `reject` is considered similar to an error and hence it is passed to the `catch` block callback which logs the error to the console.
+
+### Using `async` and `await`
+
+```typescript
+const timerWithAsync = async (timeoutInMilliSeconds: number): Promise<void> => {
+  console.log('Timer started');
+  try {
+    const result = await timer(timeoutInMilliSeconds);
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+  console.log('Timer Finished');
+};
+```
+
+If `timeoutInMilliSeconds` is positive, `setTimeout` is executed. Callback provided to `setTimeout` is executed when the `timeoutInMilliSeconds` is elapsed.
+
+The callback executes the `resolve` function which returns a string to `timerWithAsync` and is stored inside the variable `result`. The `result` is logged into the console.
+
+If `timeoutInMilliSeconds` is negative, the `reject` function is executed which returns a string to `timerWithAsync`.  
+The return value from `reject` is considered similar to an error and hence it is caught by the `try-catch` block which logs the error to the console.
+
+## Difference between `then-catch` vs `async-await`
+
+The key difference between using `then-catch` and `async-await` is the order in which the consecutive code is executed.
+
+By using `then-catch`, the code execution continues without waiting for the promise to be fulfilled. Let us run `timerWithoutAsync(5000)` and see the console statements.
+
+1. "Timer Started" was logged.
+2. "Timer Finished" was immediately logged.
+3. After 5 seconds "Timer successfully completed" is logged.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681823365616/5a4cd909-2d39-4fb1-8dbd-a5a435ef5738.png)
+
+By using `async-await`, the code execution is stopped and waits for the promise to be fulfilled. Let us run `timerWithAsync(5000)` and see the console statements.
+
+1. "Timer Started" was logged.
+2. After 5 seconds "Timer successfully completed" is logged.
+3. "Timer Finished" was immediately logged.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1681823417210/9a0facb6-793f-4880-b311-3d90b81a2072.png)
+
+Both are used often in the code depending on the use cases. If you can want to stop the execution until the promise is complete then use `async-await` syntax otherwise you can use `then-catch` syntax.
+
+## Execute Promises Sequentially
+
+Promises can be executed sequentially when the next promise is dependent on the previous promise result.
+
+```typescript
+const executeTimerSequentially = async (): Promise<void> => {
+  const result1 = await timer(1000);
+  console.log(result1);
+  const result2 = await timer(2000);
+  console.log(result2);
+  const result3 = await timer(3000);
+  console.log(result3);
+};
+```
+
+1. `timer(1000)` is executed.
+2. After 1 second, `result1` is logged.
+3. `timer(2000)` is executed.
+4. After 2 seconds, `result2` is logged.
+5. `timer(3000)` is executed.
+6. After 3 seconds, `result3` is logged.
+
+The total time to complete `executeTimerSequentially` is 1+2+3 = 6 seconds.
+
+### Promise Chaining
+
+Similar results can be achieved using `then()` block using promise chaining.
+
+```typescript
+const executeTimerSequentially = async (): Promise<void> => {
+  timer(1000)
+    .then((result1) => {
+      console.log(result1);
+      return timer(2000);
+    })
+    .then((result2) => {
+      console.log(result2);
+      return timer(3000);
+    })
+    .then((result3) => {
+      console.log(result3);
+    });
+};
+```
+
+## Execute Promises Parallelly
+
+Promises can be executed parallelly when the next promise is independent of the previous promise result.
+
+```typescript
+const executeTimerParallely = async (): Promise<void> => {
+  const promise1 = timer(1000);
+  const promise2 = timer(2000);
+  const promise3 = timer(3000);
+  const [result1, result2, result3] = await Promise.all([promise1, promise2, promise3]);
+  console.log(result1);
+  console.log(result2);
+  console.log(result3);
+};
+```
+
+`timer(1000)`, `timer(2000)`, `timer(3000)` will start the execution parallelly.
+
+`Promise.all()` takes in an array of promises and returns the result the all the promises only if all the promises are resolved otherwise it will be rejected. Since we are using `await`, It will wait for all the promises to resolve before logging the results.
+
+The total time to complete executeTimerParallely is max(1, 2, 3) = 3 seconds.
+
+### Another example for `Promise.all()`
+
+Assume we have an array of user IDs in `userIds` and we have an API function `getUserDetails` which gets the user details for the given user ID. Using `map` array arrow function, we get an array of promises to fetch the user details for each user ID.  
+We are using `await` and `Promise.all()` to make sure all the user details are fetched before logging the list of users.
+
+```typescript
+const userIds = ['001', '002', '003'];
+const getUsers = async (): Promise<void> => {
+  const users = await Promise.all(
+    userIds.map((userId) => {
+      getUserDetails(userId);
+    })
+  );
+  console.log(users);
+};
+```
