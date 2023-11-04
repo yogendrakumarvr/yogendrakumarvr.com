@@ -2,10 +2,12 @@
 import LocationIcon from '@assets/icons/Location.astro';
 import ContactEmailIcon from '@assets/icons/ContactEmail.astro';
 import LinkedInIcon from '@assets/icons/LinkedIn.astro';
+import GithubIcon from '@assets/icons/Github.astro';
 
 const location = 'Bengaluru, Karnataka, India';
 const emailId = 'kumaryogendrvr@gmail.com';
 const linkedInProfile = 'linkedin.com/in/yogendrakumarvr';
+const githubProfile = 'github.com/yogendrakumarvr';
 ---
 
 <section class="flex flex-col gap-4 lg:gap-8">
@@ -20,5 +22,9 @@ const linkedInProfile = 'linkedin.com/in/yogendrakumarvr';
   <a href=`https://www.${linkedInProfile}` class="flex gap-4">
     <LinkedInIcon className="icon-fill-color w-[16px] lg:w-[24px]" />
     <p class="normal-text font-primary">{linkedInProfile}</p>
+  </a>
+  <a href=`https://${githubProfile}` class="flex gap-4">
+    <GithubIcon className="icon-fill-color w-[16px] lg:w-[24px]" />
+    <p class="normal-text font-primary">{githubProfile}</p>
   </a>
 </section>

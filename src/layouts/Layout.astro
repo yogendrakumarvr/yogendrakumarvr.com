@@ -1,9 +1,9 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import Header from '@components/header/Header.astro';
-import { Easter } from '@components/Easter';
+import { Easter } from '@components/utils/Easter';
 import '../styles/base.css';
-import { ScrollToTopButton } from '@components/ScrollToTopButton';
+import { ScrollToTopButton } from '@components/utils/ScrollToTopButton';
 
 interface Props {
   description: string;
@@ -21,7 +21,9 @@ const { description, title, cover } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta property="og:image" content={cover} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={cover ?? '/og-image.png'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
