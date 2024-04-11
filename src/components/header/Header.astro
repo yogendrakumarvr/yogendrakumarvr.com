@@ -14,7 +14,7 @@ const resumeLink = 'https://drive.google.com/file/d/1DjWwU7Yr_D1AW98Y-U-h78cF2tJ
 
     <div class="lg:gap-24 flex items-center gap-32">
       <HeaderLink title="About" href="/about" />
-      <a href={resumeLink} download="Yogendra Kumar V R.pdf" class="rounded bg-dark p-8 dark:bg-light">
+      <a href={resumeLink} download="Yogendra Kumar V R.pdf" class="rounded bg-dark p-8 dark:bg-light" target="_blank" rel="noreferrer">
         <Download className="w-[24px] fill-light dark:fill-dark lg:w-[32px]" />
       </a>
       <ThemeSwitcher client:only />
