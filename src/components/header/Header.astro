@@ -2,8 +2,9 @@
 import Logo from '@assets/Logo.astro';
 import HeaderLink from './HeaderLink.astro';
 import { ThemeSwitcher } from '@components/header/ThemeSwitcher.tsx';
-import Resume from '@assets/resume/Yogendra_Kumar_V_R.pdf';
 import Download from '@assets/icons/Download.astro';
+
+const resumeLink = 'https://drive.google.com/file/d/1DjWwU7Yr_D1AW98Y-U-h78cF2tJ4C1I_/view?usp=drive_link'
 ---
 
 <header class="transition">
@@ -13,7 +14,7 @@ import Download from '@assets/icons/Download.astro';
 
     <div class="lg:gap-24 flex items-center gap-32">
       <HeaderLink title="About" href="/about" />
-      <a href={Resume} download="Yogendra Kumar V R.pdf" class="rounded bg-dark p-8 dark:bg-light">
+      <a href={resumeLink} download="Yogendra Kumar V R.pdf" class="rounded bg-dark p-8 dark:bg-light">
         <Download className="w-[24px] fill-light dark:fill-dark lg:w-[32px]" />
       </a>
       <ThemeSwitcher client:only />
