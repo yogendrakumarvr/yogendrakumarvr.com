@@ -1,7 +1,9 @@
 import SocialMediaInformation from './SocialMediaInformation.astro';
+import { Image } from 'astro:assets';
+import profilePicture from '../../assets/images/ProfilePicture.jpg';
 
-<img
-  src="src/assets/images/ProfilePicture.jpg"
+<Image
+  src={profilePicture}
   alt="Yogendra Kumar - Profile picture"
   width="320"
   height="320"
